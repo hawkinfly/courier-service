@@ -21,6 +21,10 @@
           label="Пароль"
           required
         ></v-text-field>
+        <v-checkbox
+          :label="`Администратор`"
+          v-model="administrator"
+        ></v-checkbox>
         <v-btn
           class="orange darken-1 btn-auth"
           large
@@ -44,7 +48,8 @@ export default {
     passwordRules: [
       v => !!v || 'Пароль является обяхательным полем',
       v => v.length < 32 || 'Пароль не может быть больше 32 символов'
-    ]
+    ],
+    administrator: false
   }),
   methods: {
     phoneBackspace () {

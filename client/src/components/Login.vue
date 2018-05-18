@@ -21,6 +21,7 @@
           name="password"
           :rules="passwordRules"
           label="Пароль"
+          maxlength="32"
           required
         ></v-text-field>
         <v-checkbox
@@ -55,7 +56,7 @@ export default {
     password: '',
     passwordRules: [
       v => !!v || 'Пароль является обяхательным полем',
-      v => v.length < 32 || 'Пароль не может быть больше 32 символов'
+      v => v.length <= 32 || 'Пароль не может быть больше 32 символов'
     ],
     administrator: false
   }),

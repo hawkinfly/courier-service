@@ -2,9 +2,13 @@
   <v-layout justify-center align-center>
     <v-flex md2>
       <v-form v-model="valid" class="form_auth" justify-center>
-        <h2 class="text-xs-center">Авторизация</h2>
+        <v-toolbar flat dense class="light-blue darken-1" dark>
+          <v-toolbar-title>Авторизация</v-toolbar-title>
+        </v-toolbar>
+        <div class="input-form">
         <v-text-field
           v-model="phone"
+          @input="phoneBackspace"
           name = "phoneNumber"
           :rules="phoneRules"
           label="Номер телефона"
@@ -21,6 +25,7 @@
           class="orange darken-1 btn-auth"
           large
         >ВОЙТИ</v-btn>
+        </div>
       </v-form>
     </v-flex>
   </v-layout>
@@ -40,7 +45,15 @@ export default {
       v => !!v || 'Пароль является обяхательным полем',
       v => v.length < 32 || 'Пароль не может быть больше 32 символов'
     ]
-  })
+  }),
+  methods: {
+    phoneBackspace () {
+      console.log(`0st - ${this.phone}`)
+      if (this.phone.length > 11) {
+        this.phone = this.phone.slice(0, -1)
+      }
+    }
+  }
 }
 </script>
 
@@ -52,12 +65,18 @@ export default {
     background-color: #fff;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     border-radius: 7px;
-    padding: 10px;
+  }
+  nav {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
   }
   .btn-auth {
     color: #fff;
     border-radius: 7px;
     width: 100%;
     margin-left: 0;
+  }
+  .input-form{
+    padding: 8px;
   }
 </style>

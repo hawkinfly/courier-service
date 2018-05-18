@@ -1,21 +1,23 @@
 <template>
   <v-layout justify-center align-center>
     <v-flex md2>
-      <v-form v-model="valid" class="form_auth" justify-center>
+      <v-form v-model="valid" class="form_auth" justify-center v-on:submit.prevent>
         <v-toolbar flat dense class="light-blue darken-1" dark>
           <v-toolbar-title>Авторизация</v-toolbar-title>
         </v-toolbar>
         <div class="input-form">
         <v-text-field
           v-model="phone"
-          @input="phoneBackspace"
           name = "phoneNumber"
           :rules="phoneRules"
           label="Номер телефона"
+          maxlength="11"
+          autocomplete="off"
           required
         ></v-text-field>
         <v-text-field
           v-model="password"
+          type="password"
           name="password"
           :rules="passwordRules"
           label="Пароль"
@@ -26,9 +28,14 @@
           v-model="administrator"
         ></v-checkbox>
         <v-btn
+          type="submit"
           class="orange darken-1 btn-auth"
           large
+          @click="sendForm"
         >ВОЙТИ</v-btn>
+        <v-layout justify-center>
+          <p v-if="errorForm" class="error-form">Данные не валидны!</p>
+        </v-layout>
         </div>
       </v-form>
     </v-flex>
@@ -38,6 +45,7 @@
 <script>
 export default {
   data: () => ({
+    errorForm: false,
     valid: false,
     phone: '',
     phoneRules: [
@@ -52,10 +60,13 @@ export default {
     administrator: false
   }),
   methods: {
-    phoneBackspace () {
-      console.log(`0st - ${this.phone}`)
-      if (this.phone.length > 11) {
-        this.phone = this.phone.slice(0, -1)
+    sendForm () {
+      let pattern = /^\d{11}$/
+      if ((pattern.test(this.phone)) && (this.password.length >= 6 && this.password.length <= 32)) {
+        this.errorForm = false
+        console.log('hi')
+      } else {
+        this.errorForm = true
       }
     }
   }
@@ -83,5 +94,9 @@ export default {
   }
   .input-form{
     padding: 8px;
+  }
+  .error-form {
+    color: red;
+    margin-bottom: 0;
   }
 </style>

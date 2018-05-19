@@ -4,7 +4,7 @@
   "description": "Серверная часть Курьерской службы",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --watch src"
+    "start": "nodemon src/server.js --watch src"
   },
   "author": "Andrew Kopanev",
   "license": "ISC",
@@ -12,9 +12,13 @@
     "nodemon": "^1.17.4"
   },
   "dependencies": {
+    "bcrypt-nodejs-as-promised": "^1.0.4",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.1.1",
     "morgan": "^1.9.0"
   }
 }

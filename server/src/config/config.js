@@ -1,3 +1,5 @@
 module.exports = {
-    port: 8081
+    database: 'mongodb://localhost/dbcourier',
+    port: 8081,
+    secret: 'somesecretkey31'
 }

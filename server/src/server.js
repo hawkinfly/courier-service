@@ -4,8 +4,10 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const bluebird = require('bluebird')
-const config = require('./config/config')
 
+const config = require('./config/config')
+const authRoute = require('./routes/auth')
+const errorHandler = require('./middlewares/errorHandler')
 const app = express()
 
 mongoose.Promise = bluebird
@@ -28,6 +30,6 @@ app.use(session({
   secret: config.secret
 }))
 
-app.get('*', async (req, res) => {
-  res.end('Hello World')
-})
+app.use('/api', authRoute)
+
+app.use(errorHandler)

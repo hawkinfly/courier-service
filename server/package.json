@@ -12,7 +12,7 @@
     "nodemon": "^1.17.4"
   },
   "dependencies": {
-    "bcrypt-nodejs-as-promised": "^1.0.4",
+    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",

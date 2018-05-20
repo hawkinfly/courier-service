@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('../middlewares/bcrypt-promise')
 
-const UserSchema = new Schema({
+const AdministratorSchema = new Schema({
     phoneNumber: {type: String, unique: true, index: true},
     password: String
 })
 
-UserSchema.pre('save', async function(next) {
+AdministratorSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
         return next()
     }
@@ -16,8 +16,8 @@ UserSchema.pre('save', async function(next) {
     next()
 })
 
-UserSchema.methods.comparePasswords = function (password) {
+AdministratorSchema.methods.comparePasswords = function (password) {
     return bcrypt.compare(password, this.password)     
 }
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('Administrator', AdministratorSchema)

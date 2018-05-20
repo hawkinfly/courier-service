@@ -1,29 +1,32 @@
-const User = require('../models/User')
+const jwt = require('jsonwebtoken')
+
+const Administrator = require('../models/Administrator')
+const config = require('../config/config')
 
 const signup = async (req, res, next) => {
     const credentials = req.body
-    let user
+    let administrator
     try {
-        user = await User.create(credentials)
+        administrator = await Administrator.create(credentials)
     } catch ({ message }) {
         return next({
             status: 400,
             message
         })
     }
-    res.json(user)
+    res.json(administrator)
 }
 const signin = async (req, res, next) => {
     const { phoneNumber, password } = req.body
-    const user = await User.findOne({ phoneNumber })
-    if(!user) {
+    const administrator = await Administrator.findOne({ phoneNumber })
+    if(!administrator) {
         return next({
             status: 400,
-            message: 'User not found'
+            message: 'Administrator not found'
         })
     }
     try {
-        const result = await user.comparePasswords(password)
+        const result = await administrator.comparePasswords(password)
     } catch (e) {
         return next({
             status: 400,
@@ -31,8 +34,8 @@ const signin = async (req, res, next) => {
         })
     }
 
-    req.session.userId = user._id
-    res.json(user)
+    const token = jwt.sign({_id: administrator._id}, config.secret)
+    res.json(token)
 }
 module.exports.signup = signup
 module.exports.signin = signin

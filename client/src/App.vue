@@ -18,7 +18,7 @@ export default {
     MyFooter
   },
   data: () => ({
-    authToken: 's'
+    authToken: ''
   })
 }
 </script>

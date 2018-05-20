@@ -1,6 +1,6 @@
 <template>
   <v-toolbar class="blue darken-1">
-    <v-toolbar-side-icon class="side-icon"></v-toolbar-side-icon>
+    <v-toolbar-side-icon  class="side-icon" v-if="authToken"></v-toolbar-side-icon>
     <v-toolbar-title>Курьерская служба</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items v-if="authToken">

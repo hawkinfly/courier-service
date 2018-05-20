@@ -8,9 +8,10 @@ export default {
     })
       .then(function (response) {
         console.log(response.data)
+        // добавить токен в куки или сессии
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch(function () {
+        return 'Ошибка авторизации'
       })
   }
 }

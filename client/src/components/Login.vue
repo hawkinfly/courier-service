@@ -38,7 +38,7 @@
           @click="sendForm"
         >ВОЙТИ</v-btn>
         <v-layout justify-center>
-          <p v-if="errorForm" class="error-form">Данные не валидны!</p>
+          <p v-if="errorForm" class="error-form">{{ errorForm }}</p>
         </v-layout>
         </div>
       </v-form>
@@ -69,10 +69,10 @@ export default {
     async sendForm () {
       let pattern = /^\d{11}$/
       if ((pattern.test(this.phone)) && (this.password.length >= 4 && this.password.length <= 32)) {
-        this.errorForm = false
-        await Authorization.authorization(this.phone, this.password)
+        this.errorForm = ''
+        this.errorForm = await Authorization.authorization(this.phone, this.password)
       } else {
-        this.errorForm = true
+        this.errorForm = 'Данные не валидны'
       }
     }
   }

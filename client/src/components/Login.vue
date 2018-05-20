@@ -1,10 +1,12 @@
 <template>
 <v-container>
   <v-layout justify-center align-center class="fullheight">
-    <v-flex md2>
+    <v-flex md6 lg4 xl3>
       <v-form v-model="valid" class="form_auth" justify-center v-on:submit.prevent>
         <v-toolbar flat dense class="light-blue darken-1" dark>
-          <v-toolbar-title>Авторизация</v-toolbar-title>
+          <v-layout justify-center align-center>
+          <v-toolbar-title class="ml-0">Авторизация</v-toolbar-title>
+          </v-layout>
         </v-toolbar>
         <div class="input-form">
         <v-text-field

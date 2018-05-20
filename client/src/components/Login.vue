@@ -1,5 +1,6 @@
 <template>
-  <v-layout justify-center align-center>
+<v-container>
+  <v-layout justify-center align-center class="fullheight">
     <v-flex md2>
       <v-form v-model="valid" class="form_auth" justify-center v-on:submit.prevent>
         <v-toolbar flat dense class="light-blue darken-1" dark>
@@ -41,6 +42,7 @@
       </v-form>
     </v-flex>
   </v-layout>
+</v-container>
 </template>
 
 <script>
@@ -99,5 +101,8 @@ export default {
   .error-form {
     color: red;
     margin-bottom: 0;
+  }
+  .fullheight{
+    min-height: 100%;
   }
 </style>

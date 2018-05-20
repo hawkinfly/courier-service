@@ -8,7 +8,9 @@ const bluebird = require('bluebird')
 const config = require('./config/config')
 const authRoute = require('./routes/auth')
 const administratorRoute = require('./routes/administrator')
+const pageRoute = require('./routes/page')
 const errorHandler = require('./middlewares/errorHandler')
+const getAdministrator = require('./middlewares/getAdministrator')
 const checkToken = require('./middlewares/checkToken')
 const app = express()
 
@@ -34,5 +36,6 @@ app.use(session({
 
 app.use('/api', authRoute)
 app.use('/api', checkToken, administratorRoute)
-
+app.use(getAdministrator)
+app.use('/api', checkToken, pageRoute)
 app.use(errorHandler)

@@ -3,6 +3,6 @@ const AdministratorController = require('../controllers/administrator')
 
 const router = express.Router()
 
-router.get('/current-user', AdministratorController.getCurrentAdministrator)
+router.get('/current-administrator', AdministratorController.getCurrentAdministrator)
 
 module.exports = router

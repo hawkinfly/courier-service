@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import Authorization from '@/services/Authorization'
 export default {
   data: () => ({
     errorForm: false,
@@ -65,11 +66,11 @@ export default {
     administrator: false
   }),
   methods: {
-    sendForm () {
+    async sendForm () {
       let pattern = /^\d{11}$/
-      if ((pattern.test(this.phone)) && (this.password.length >= 6 && this.password.length <= 32)) {
+      if ((pattern.test(this.phone)) && (this.password.length >= 4 && this.password.length <= 32)) {
         this.errorForm = false
-        console.log('hi')
+        await Authorization.authorization(this.phone, this.password)
       } else {
         this.errorForm = true
       }

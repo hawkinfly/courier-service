@@ -4,6 +4,7 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const bluebird = require('bluebird')
+const cors = require('cors')
 
 const config = require('./config/config')
 const authRoute = require('./routes/auth')
@@ -34,7 +35,7 @@ app.use(session({
   secret: config.secret
 }))
 
-app.use('/api', authRoute)
+app.use('/api', cors() , authRoute)
 app.use('/api', checkToken, administratorRoute)
 app.use(getAdministrator)
 app.use('/api', checkToken, pageRoute)

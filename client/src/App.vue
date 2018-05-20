@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-    <my-header/>
+    <my-header :authToken='authToken'/>
     <router-view/>
     <my-footer/>
     </v-app>
@@ -16,7 +16,10 @@ export default {
   components: {
     MyHeader,
     MyFooter
-  }
+  },
+  data: () => ({
+    authToken: 's'
+  })
 }
 </script>
 

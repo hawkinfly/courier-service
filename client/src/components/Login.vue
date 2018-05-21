@@ -63,22 +63,35 @@ export default {
     ],
     password: '',
     passwordRules: [
-      v => !!v || 'Пароль является обяхательным полем',
+      v => !!v || 'Пароль является обязательным полем',
       v => v.length <= 32 || 'Пароль не может быть больше 32 символов'
     ],
     administrator: false
   }),
+  mounted () {
+    if (localStorage.token) {
+      this.$router.push('/addcourier')
+    }
+  },
   methods: {
     async sendForm () {
       let pattern = /^\d{11}$/
       if ((pattern.test(this.phone)) && (this.password.length >= 4 && this.password.length <= 32)) {
-        this.errorForm = ''
-        this.errorForm = await Authorization.authorization(this.phone, this.password)
-        if (!this.errorForm) {
-          // TODO переадресация на страницу
+        if (this.administrator) {
+          this.errorForm = ''
+          this.errorForm = await Authorization.authorization(this.phone, this.password)
+          if (!this.errorForm) {
+            // TODO переадресация на страницу
+            this.$router.push('/addcourier')
+          } else {
+            this.errorForm = 'Данные не валидны'
+          }
+        } else {
+          // TODO авторизация курьера
+          console.log('Hi')
         }
       } else {
-        this.errorForm = 'Данные не валидны'
+        this.errorForm = 'Неверный формат данных'
       }
     }
   }

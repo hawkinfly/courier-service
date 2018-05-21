@@ -25,7 +25,7 @@
     <v-toolbar-title><a href="/">Курьерская служба</a></v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items v-if="authTokenLocal" class="hidden-sm-and-down">
-      <v-btn flat class="btn-menu" @click="addCourier">Добавить курьера</v-btn>
+      <v-btn flat class="btn-menu">Добавить курьера</v-btn>
       <v-btn flat class="btn-menu">Изменить данные</v-btn>
       <v-btn flat class="btn-menu">Добавить заявку</v-btn>
       <v-btn flat class="btn-menu">Текущие заявки</v-btn>
@@ -41,16 +41,10 @@ export default {
       authTokenLocal: localStorage.getItem('token')
     }
   },
-  beforeDestroy: function () {
-    alert('updated')
-  },
   methods: {
     tokenDestroy () {
-      console.log('0  st ' + this.authTokenLocal)
       localStorage.removeItem('token')
-      console.log('1st ' + this.authTokenLocal)
       this.$emit('update:authToken', '')
-      console.log('2nd ' + this.authTokenLocal)
       this.$router.push('/')
     },
     getToken () {

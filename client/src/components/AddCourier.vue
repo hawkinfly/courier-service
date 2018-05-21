@@ -10,59 +10,53 @@
         </v-toolbar>
         <div class="input-form">
         <v-text-field
-          v-model="lastName"
+          v-model="courier.lastName"
           name="lastName"
           label="Фамилия"
-          :rules="nameRules"
           maxlength="50"
           autocomplete="off"
           required
           prepend-icon="person"
         ></v-text-field>
         <v-text-field
-          v-model="firstName"
+          v-model="courier.firstName"
           name="firstName"
           label="Имя"
-          :rules="nameRules"
           maxlength="50"
           autocomplete="off"
           required
           prepend-icon="person"
         ></v-text-field>
         <v-text-field
-          v-model="middleName"
+          v-model="courier.middleName"
           name="middleName"
           label="Отчество"
-          :rules="nameRules"
           maxlength="50"
           autocomplete="off"
           required
           prepend-icon="person"
         ></v-text-field>
         <v-text-field
-          v-model="passport"
+          v-model="courier.passport"
           name="passport"
           label="Серия и номер паспотра"
-          :rules="passportRules"
           maxlength="12"
           autocomplete="off"
           prepend-icon="fa-address-card"
           required
         ></v-text-field>
         <v-text-field
-          v-model="address"
+          v-model="courier.address"
           name="address"
           label="Адрес"
-          :rules="addressRules"
           maxlength="120"
           autocomplete="off"
           prepend-icon="home"
           required
         ></v-text-field>
         <v-text-field
-          v-model="phone"
+          v-model="courier.phoneNumber"
           name = "phoneNumber"
-          :rules="phoneRules"
           label="Номер телефона"
           maxlength="11"
           autocomplete="off"
@@ -70,17 +64,16 @@
           prepend-icon="phone"
         ></v-text-field>
         <v-text-field
-          v-model="password"
+          v-model="courier.password"
           type="password"
           name="password"
-          :rules="passwordRules"
           label="Пароль"
           maxlength="32"
           required
           prepend-icon="security"
         ></v-text-field>
          <v-text-field
-          v-model="car"
+          v-model="courier.car"
           name="car"
           label="Автомобиль"
           maxlength="50"
@@ -88,7 +81,7 @@
           prepend-icon="fa-car"
         ></v-text-field>
         <v-text-field
-          v-model="numberCar"
+          v-model="courier.numberCar"
           name="numberCar"
           label="Автомобильный номер"
           maxlength="50"
@@ -121,17 +114,18 @@
 export default {
   data: () => ({
     errorForm: false,
-    valid: false,
-    phone: '',
-    phoneRules: [
-      v => !!v || 'Номер телефона обязателен',
-      v => v.length === 11 || 'Номер телефона должен состоять из 11 цифр'
-    ],
-    password: '',
-    passwordRules: [
-      v => !!v || 'Пароль является обязательным полем',
-      v => v.length <= 32 || 'Пароль не может быть больше 32 символов'
-    ]
+    valid: '',
+    courier: {
+      firstName: '',
+      lastName: '',
+      middleName: '',
+      passport: '',
+      address: '',
+      phoneNumber: '',
+      password: '',
+      car: '',
+      numberCar: ''
+    }
   }),
   methods: {
     sendForm () {

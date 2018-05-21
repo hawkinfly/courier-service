@@ -7,8 +7,7 @@ export default {
       password: password
     })
       .then(function (response) {
-        console.log(response.data)
-        // добавить токен в куки или сессии
+        localStorage.setItem('token', response.data)
       })
       .catch(function () {
         return 'Ошибка авторизации'

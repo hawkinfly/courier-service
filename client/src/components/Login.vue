@@ -16,7 +16,9 @@
           label="Номер телефона"
           maxlength="11"
           autocomplete="off"
+          autofocus
           required
+          prepend-icon="phone"
         ></v-text-field>
         <v-text-field
           v-model="password"
@@ -26,6 +28,7 @@
           label="Пароль"
           maxlength="32"
           required
+          prepend-icon="security"
         ></v-text-field>
         <v-checkbox
           :label="`Администратор`"
@@ -71,6 +74,9 @@ export default {
       if ((pattern.test(this.phone)) && (this.password.length >= 4 && this.password.length <= 32)) {
         this.errorForm = ''
         this.errorForm = await Authorization.authorization(this.phone, this.password)
+        if (!this.errorForm) {
+          // TODO переадресация на страницу
+        }
       } else {
         this.errorForm = 'Данные не валидны'
       }

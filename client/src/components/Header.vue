@@ -4,7 +4,7 @@
     <v-toolbar-title>Курьерская служба</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items v-if="authToken">
-      <v-btn flat class="btn-exit">Выход</v-btn>
+      <v-btn flat class="btn-exit" @click="tokenDestroy">Выход</v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -13,7 +13,12 @@
 export default {
   props: ['authToken'],
   data: () => ({
-  })
+  }),
+  methods: {
+    tokenDestroy () {
+      localStorage.removeItem('token')
+    }
+  }
 }
 </script>
 

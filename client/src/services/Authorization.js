@@ -12,5 +12,15 @@ export default {
       .catch(function () {
         return 'Ошибка авторизации'
       })
+  },
+  autentification (token) {
+    return api().get('/api/current-administrator', { headers: { Authorization: token } })
+      .then(function (response) {
+        localStorage.setItem('user', 'administrator')
+      })
+      .catch(function () {
+        console.log('Пользователь не найден')
+        return 'Ошибка авторизации'
+      })
   }
 }

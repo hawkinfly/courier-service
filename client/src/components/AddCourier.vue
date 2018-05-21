@@ -1,6 +1,6 @@
 <template>
 <v-container>
-  <v-layout justify-center>
+  <v-layout justify-center v-if="user == 'administrator'">
     <v-flex md6 lg4 xl3>
       <v-form v-model="valid" class="form_auth" justify-center v-on:submit.prevent>
         <v-toolbar flat dense class="light-blue darken-1" dark>
@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import Authorization from '@/services/Authorization'
 export default {
   data: () => ({
     errorForm: false,
@@ -125,8 +126,14 @@ export default {
       password: '',
       car: '',
       numberCar: ''
-    }
+    },
+    user: ''
   }),
+  beforeCreate: async function () {
+    const token = localStorage.token
+    await Authorization.autentification(token)
+    this.user = localStorage.user
+  },
   methods: {
     sendForm () {
     },

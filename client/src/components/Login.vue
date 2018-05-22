@@ -70,7 +70,7 @@ export default {
   }),
   mounted () {
     if (localStorage.token) {
-      this.$router.push('/addcourier')
+      this.$router.push('/bids')
     }
   },
   methods: {
@@ -81,8 +81,7 @@ export default {
           this.errorForm = ''
           this.errorForm = await Authorization.authorization(this.phone, this.password)
           if (!this.errorForm) {
-            // TODO переадресация на страницу
-            this.$router.push('/addcourier')
+            this.$router.push('/bids')
           } else {
             this.errorForm = 'Данные не валидны'
           }

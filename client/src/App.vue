@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-    <my-header/>
+    <my-header :authToken="authToken"/>
     <router-view/>
     <my-footer/>
     </v-app>
@@ -19,7 +19,17 @@ export default {
   },
   data: () => ({
     authToken: localStorage.getItem('token')
-  })
+  }),
+  methods: {
+    getAuthorization () {
+      this.authToken = localStorage.getItem('token')
+    }
+  },
+  watch: {
+    $route () {
+      this.getAuthorization()
+    }
+  }
 }
 </script>
 

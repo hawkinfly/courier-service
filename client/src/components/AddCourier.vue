@@ -111,7 +111,6 @@
 </template>
 
 <script>
-import Authorization from '@/services/Authorization'
 export default {
   data: () => ({
     errorForm: false,
@@ -130,9 +129,9 @@ export default {
     user: ''
   }),
   beforeCreate: async function () {
-    const token = localStorage.token
-    await Authorization.autentification(token)
-    this.user = localStorage.user
+    console.log('Первый ' + this.user)
+    this.user = await localStorage.token
+    console.log('Второй ' + this.user)
   },
   methods: {
     sendForm () {

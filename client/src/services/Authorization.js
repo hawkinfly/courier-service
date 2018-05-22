@@ -7,7 +7,7 @@ export default {
       password: password
     })
       .then(function (response) {
-        localStorage.setItem('token', response.data)
+        localStorage.setItem('token', 'administrator')
       })
       .catch(function () {
         return 'Ошибка авторизации'

@@ -3,18 +3,18 @@ const Schema = mongoose.Schema
 const bcrypt = require('../middlewares/bcrypt-promise')
 
 const CourierSchema = new Schema({
-    phoneNumber: {type: String, unique: true, index: true},
+    phoneNumber: {type: Schema.Types.String, unique: true, index: true},
     password: String,
     firstName: String,
     middleName: String,
     lastName: String,
-    passport: {type:String, unique: true},
+    passport: {type: Schema.Types.String, unique: true},
     address: String,
-    car: String,
-    numberCar: String,
+    car: {type: String, default: 'Автомобиль не указан'},
+    numberCar: {type: String, default: 'Автомобильный номер не указан'}
 })
 
-AdministratorSchema.pre('save', async function(next) {
+CourierSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
         return next()
     }

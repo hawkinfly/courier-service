@@ -69,7 +69,7 @@ export default {
     administrator: false
   }),
   mounted () {
-    if (localStorage.token) {
+    if (localStorage.user) {
       this.$router.push('/bids')
     }
   },

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-    <my-header :authToken="authToken"/>
+    <my-header :authUser="authUser"/>
     <router-view/>
     <my-footer/>
     </v-app>
@@ -18,11 +18,11 @@ export default {
     MyFooter
   },
   data: () => ({
-    authToken: localStorage.getItem('token')
+    authUser: localStorage.getItem('user')
   }),
   methods: {
     getAuthorization () {
-      this.authToken = localStorage.getItem('token')
+      this.authUser = localStorage.getItem('user')
     }
   },
   watch: {

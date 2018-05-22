@@ -1,6 +1,6 @@
 <template>
   <v-toolbar class="blue darken-1">
-    <v-menu class="hidden-md-and-up list-menu" absolute left top transition="slide-x-transition" v-if="authToken">
+    <v-menu class="hidden-md-and-up list-menu" absolute left top transition="slide-x-transition" v-if="authUser">
       <v-btn slot="activator" icon dark>
         <v-icon>list</v-icon>
       </v-btn>
@@ -24,7 +24,7 @@
     </v-menu>
     <v-toolbar-title><a href="/">Курьерская служба</a></v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-items v-if="authToken" class="hidden-sm-and-down">
+    <v-toolbar-items v-if="authUser" class="hidden-sm-and-down">
       <v-btn flat class="btn-menu" @click="addCourier">Добавить курьера</v-btn>
       <v-btn flat class="btn-menu" @click="editCourier">Изменить данные</v-btn>
       <v-btn flat class="btn-menu" @click="addBid">Добавить заявку</v-btn>
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  props: ['authToken'],
+  props: ['authUser'],
   data: function () {
     return {
     }
@@ -44,6 +44,7 @@ export default {
   methods: {
     tokenDestroy () {
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
       this.$emit('update:authToken', '')
       this.$router.push('/')
     },

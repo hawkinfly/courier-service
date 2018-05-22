@@ -102,6 +102,7 @@
         >Добавить</v-btn>
         <v-layout justify-center>
           <p v-if="errorForm" class="error-form">{{ errorForm }}</p>
+          <p v-if="successForm" class="success-form">{{ successForm }}</p>
         </v-layout>
         </div>
       </v-form>
@@ -111,9 +112,11 @@
 </template>
 
 <script>
+import AddCourier from '@/services/AddCourier'
 export default {
   data: () => ({
     errorForm: false,
+    successForm: false,
     valid: '',
     courier: {
       firstName: '',
@@ -129,16 +132,30 @@ export default {
     user: ''
   }),
   beforeCreate: async function () {
-    console.log('Первый ' + this.user)
-    this.user = await localStorage.token
-    console.log('Второй ' + this.user)
+    this.user = await localStorage.user
   },
   methods: {
-    sendForm () {
+    sendForm: async function () {
+      this.successForm = false
+      this.errorForm = false
+      let result = await AddCourier.addCourier(this.courier)
+      for (let i in this.courier) {
+        this.courier[i] = ''
+      }
+      if (result === 'Курьер добавлен') {
+        this.successForm = result
+      } else {
+        this.errorForm = result
+      }
+      setTimeout(() => {
+        this.successForm = false
+        this.errorForm = false
+      }, 5000)
     },
     resetButton () {
-      this.phone = ''
-      this.password = ''
+      for (let i in this.courier) {
+        this.courier[i] = ''
+      }
     }
   }
 }
@@ -169,6 +186,10 @@ export default {
   }
   .error-form {
     color: red;
+    margin-bottom: 0;
+  }
+  .success-form{
+    color: rgb(13, 197, 13);
     margin-bottom: 0;
   }
   .fullheight{

@@ -1,4 +1,5 @@
 const Courier = require('../models/Courier')
+const bcrypt = require('../middlewares/bcrypt-promise')
 
 module.exports.create = async function (req, res, next) {
     const pageData = req.body
@@ -27,4 +28,37 @@ module.exports.findAll = async function (req, res, next) {
          list_couriers[i].password = ''
      }
     res.json(list_couriers)
+}
+
+module.exports.delete = async function (req, res, next) {
+    const id = req.body._id
+    try {
+        var result = await Courier.findByIdAndRemove(id)
+    } catch ({ message }) {
+        throw next({
+            status: 400,
+            message
+        })
+    }
+    res.json(result)
+}
+
+module.exports.update = async function (req, res, next) {
+    const id = req.body._id
+    if (req.body.password !== ''){
+        const hash = await bcrypt.hash(req.body.password)
+        req.body.password = hash
+
+    } else {
+        delete req.body.password
+    }
+    try {
+        var result = await Courier.findByIdAndUpdate(id, req.body, {new: true} )
+    } catch ({ message }) {
+        throw next({
+            status: 400,
+            message
+        })
+    }
+    res.json(result)
 }

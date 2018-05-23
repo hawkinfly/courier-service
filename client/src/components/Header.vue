@@ -52,7 +52,7 @@ export default {
       this.$router.push('/addcourier')
     },
     editCourier () {
-      this.$router.push('/editCourier')
+      this.$router.push('/editcourier')
     },
     addBid () {
       this.$router.push('/addbid')

@@ -6,7 +6,6 @@
                 :items="items"
                 v-model="selectCourier"
                 label="Выбрать курьера"
-                single-line
                 autocomplete
                 ></v-select>
             </v-flex>
@@ -109,7 +108,7 @@
                   type="submit"
                   class="green darken-1 btn-auth"
                   large
-                  @click="changeCourier"
+                  @click="updateCourier"
                 >Изменить</v-btn>
                 </v-layout>
                 <v-layout justify-center>
@@ -125,8 +124,11 @@
 
 <script>
 import GetCourier from '@/services/GetCourier'
+import DeleteUpdateCourier from '@/services/DeleteUpdateCourier'
 export default {
   beforeCreate: async function () {
+    this.successForm = false
+    this.errorForm = false
     this.user = await localStorage.user
     this.userData = await GetCourier.getCouriers()
     for (let i in this.userData) {
@@ -152,28 +154,50 @@ export default {
       password: '',
       car: '',
       numberCar: ''
-    }
+    },
+    numberSelect: null
   }),
   methods: {
-    changeCourier () {
-
+    updateCourier: async function () {
+      let courierObject = {}
+      for (let key in this.courier) {
+        courierObject[key] = this.courier[key]
+      }
+      courierObject._id = this.id_couriers[this.numberSelect]
+      let result = await DeleteUpdateCourier.updateCourier(courierObject)
+      if (result === 'Данные обновлены') {
+        this.successForm = result
+      } else {
+        this.errorForm = result
+      }
+      this.courier.password = ''
+      setTimeout(() => {
+        this.successForm = false
+        this.errorForm = false
+      }, 3000)
     },
-    delCourier () {
-      // hi
+    delCourier: async function () {
+      let result = await DeleteUpdateCourier.deleteCourier(this.id_couriers[this.numberSelect])
+      if (result === 'Курьер успешно удалён') {
+        this.successForm = result
+      } else {
+        this.errorForm = result
+      }
+      setTimeout(() => { location.reload() }, 2000)
     }
   },
   watch: {
     selectCourier: function () {
-      const numberSelect = this.selectCourier[0] - 1
-      this.courier.lastName = this.userData[numberSelect].lastName
-      this.courier.firstName = this.userData[numberSelect].firstName
-      this.courier.middleName = this.userData[numberSelect].middleName
-      this.courier.passport = this.userData[numberSelect].passport
-      this.courier.address = this.userData[numberSelect].address
-      this.courier.phoneNumber = this.userData[numberSelect].phoneNumber
-      this.courier.car = this.userData[numberSelect].car
-      this.courier.numberCar = this.userData[numberSelect].numberCar
-      this.courier.password = this.userData[numberSelect].password
+      this.numberSelect = this.selectCourier[0] - 1
+      this.courier.lastName = this.userData[this.numberSelect].lastName
+      this.courier.firstName = this.userData[this.numberSelect].firstName
+      this.courier.middleName = this.userData[this.numberSelect].middleName
+      this.courier.passport = this.userData[this.numberSelect].passport
+      this.courier.address = this.userData[this.numberSelect].address
+      this.courier.phoneNumber = this.userData[this.numberSelect].phoneNumber
+      this.courier.car = this.userData[this.numberSelect].car
+      this.courier.numberCar = this.userData[this.numberSelect].numberCar
+      this.courier.password = this.userData[this.numberSelect].password
     }
   }
 }

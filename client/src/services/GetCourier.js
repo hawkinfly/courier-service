@@ -10,7 +10,7 @@ export default {
         return response.data
       })
       .catch(function () {
-        console.log('error')
+        return 'Ошибка получения списка курьеров'
       })
   }
 }

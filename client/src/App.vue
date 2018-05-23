@@ -37,10 +37,10 @@ export default {
   #app{
     background-color: rgb(238, 237, 237);
   }
-  .menu__content{
+ /* .menu__content{
     left: 0 !important;
     top: 0 !important;
-    min-width: 100% !important;
+     min-width: 100% !important;
     width: 100%;
-  }
+  } */
 </style>

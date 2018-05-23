@@ -1,7 +1,7 @@
 <template>
 <v-container>
-  <v-layout justify-center v-if="user == 'administrator'">
-    <v-flex md6 lg4 xl3>
+  <v-layout row justify-center v-if="user == 'administrator'">
+    <v-flex md6 lg4 xl4>
       <v-form v-model="valid" class="form_auth" justify-center v-on:submit.prevent>
         <v-toolbar flat dense class="light-blue darken-1" dark>
           <v-layout justify-center align-center>
@@ -88,6 +88,7 @@
           autocomplete="off"
           prepend-icon="subtitles"
         ></v-text-field>
+        <v-layout justify-space-around>
         <v-btn
             type="button"
             class="red darken-1 btn-auth"
@@ -100,6 +101,7 @@
           large
           @click="sendForm"
         >Добавить</v-btn>
+        </v-layout>
         <v-layout justify-center>
           <p v-if="errorForm" class="error-form">{{ errorForm }}</p>
           <p v-if="successForm" class="success-form">{{ successForm }}</p>
@@ -162,9 +164,6 @@ export default {
 </script>
 
 <style scoped>
-    h2 {
-    color: rgb(63, 62, 62);
-  }
   .form_auth {
     background-color: #fff;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);

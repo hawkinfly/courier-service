@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import AddCourier from '@/components/AddCourier'
 import EditCourier from '@/components/EditCourier'
 import AddBid from '@/components/AddBid'
+import Bids from '@/components/Bids'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/addbid',
       name: 'AddBid',
       component: AddBid
+    },
+    {
+      path: '/bids',
+      name: 'Bids',
+      component: Bids
     }
   ]
 })

@@ -62,3 +62,18 @@ module.exports.update = async function (req, res, next) {
     }
     res.json(result)
 }
+
+module.exports.findOne = async function (req, res, next) {
+    const id_courier = req.body.id_courier
+    try {
+        var courier = await Courier.findById(id_courier)
+
+    } catch ({ message }) {
+        throw next({
+            status: 400,
+            message
+        })
+    }
+    courier.password = ''
+    res.json(courier)
+}

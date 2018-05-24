@@ -21,5 +21,29 @@ export default {
       .catch(function () {
         return 'Ошибка создания заявки'
       })
+  },
+  getBidsStatus0 () {
+    const config = {
+      headers: { Authorization: localStorage.token }
+    }
+    return api().get('/api/getbids', config)
+      .then(function (response) {
+        return response.data
+      })
+      .catch(function () {
+        return 'Ошибка получения заявок'
+      })
+  },
+  deleteBid (id) {
+    const config = {
+      headers: { Authorization: localStorage.token }
+    }
+    return api().post('/api/deletebid', {_id: id}, config)
+      .then(function (response) {
+        return 'Заявка успешно удалена'
+      })
+      .catch(function () {
+        return 'Ошибка удалении заявки'
+      })
   }
 }

@@ -32,6 +32,7 @@ export default {
       .then(function (response) {
         localStorage.setItem('user', 'courier')
         localStorage.setItem('token', response.data)
+        localStorage.setItem('phone', phoneNumber)
       })
       .catch(function () {
         return 'Ошибка авторизации'

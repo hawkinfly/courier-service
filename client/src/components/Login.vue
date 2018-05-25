@@ -69,8 +69,10 @@ export default {
     administrator: false
   }),
   mounted () {
-    if (localStorage.user) {
+    if (localStorage.user === 'administrator') {
       this.$router.push('/bids')
+    } else if (localStorage.user === 'courier') {
+      this.$router.push('/mybids')
     }
   },
   methods: {

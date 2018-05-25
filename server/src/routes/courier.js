@@ -9,6 +9,5 @@ router.get('/editcourier', CourierController.findAll)
 router.post('/deletecourier', CourierController.delete)
 router.post('/updatecourier', CourierController.update)
 router.post('/getcourier', CourierController.findOne)
-router.get('/current-courier', CourierController.getCurrentCourier)
 
 module.exports = router

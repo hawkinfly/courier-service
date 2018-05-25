@@ -19,7 +19,7 @@ export default {
     }
     return api().post('/api/getcourier', { id_courier: idCourier }, config)
       .then(function (response) {
-        return `${response.data.lastName} ${response.data.firstName} - ${response.data.phoneNumber} `
+        return `${response.data.lastName} ${response.data.firstName} - ${response.data.phoneNumber}`
       })
       .catch(function () {
         return 'Ошибка получения курьера'

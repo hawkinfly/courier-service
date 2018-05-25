@@ -66,6 +66,7 @@ export default {
     tokenDestroy () {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
+      localStorage.removeItem('phone')
       this.$emit('update:authToken', '')
       this.$router.push('/')
     },

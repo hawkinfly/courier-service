@@ -1,5 +1,6 @@
 const Courier = require('../models/Courier')
 const bcrypt = require('../middlewares/bcrypt-promise')
+const CourierService = require('../services/CourierService')
 
 module.exports.create = async function (req, res, next) {
     const pageData = req.body
@@ -76,4 +77,19 @@ module.exports.findOne = async function (req, res, next) {
     }
     courier.password = ''
     res.json(courier)
-}
+},
+
+module.exports.CourierService = CourierService
+
+module.exports.getCurrentCourier = async function(req, res, next) {
+    const { token } = req
+    try {
+        var courier = await CourierService.getCourierByToken(token)
+    } catch ({ message }) {
+        return next ({
+            status: 500,
+            message
+        })
+    }
+    return res.json(courier)
+    }

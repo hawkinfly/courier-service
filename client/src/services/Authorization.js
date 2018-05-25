@@ -23,5 +23,18 @@ export default {
         console.log('Пользователь не найден')
         return 'Ошибка авторизации'
       })
+  },
+  authorizationCourier (phoneNumber, password) {
+    return api().post('/api/signincourier', {
+      phoneNumber: phoneNumber,
+      password: password
+    })
+      .then(function (response) {
+        localStorage.setItem('user', 'courier')
+        localStorage.setItem('token', response.data)
+      })
+      .catch(function () {
+        return 'Ошибка авторизации'
+      })
   }
 }

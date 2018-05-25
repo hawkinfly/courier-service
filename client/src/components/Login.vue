@@ -86,8 +86,13 @@ export default {
             this.errorForm = 'Данные не валидны'
           }
         } else {
-          // TODO авторизация курьера
-          console.log('Hi')
+          this.errorForm = ''
+          this.errorForm = await Authorization.authorizationCourier(this.phone, this.password)
+          if (!this.errorForm) {
+            this.$router.push('/mybids')
+          } else {
+            this.errorForm = 'Данные не валидны'
+          }
         }
       } else {
         this.errorForm = 'Неверный формат данных'

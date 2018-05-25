@@ -5,6 +5,8 @@ import AddCourier from '@/components/AddCourier'
 import EditCourier from '@/components/EditCourier'
 import AddBid from '@/components/AddBid'
 import Bids from '@/components/Bids'
+import ReadyBids from '@/components/ReadyBids'
+import MyBids from '@/components/MyBids'
 
 Vue.use(Router)
 
@@ -34,6 +36,16 @@ export default new Router({
       path: '/bids',
       name: 'Bids',
       component: Bids
+    },
+    {
+      path: '/readybids',
+      name: 'ReadyBids',
+      component: ReadyBids
+    },
+    {
+      path: '/mybids',
+      name: 'MyBids',
+      component: MyBids
     }
   ]
 })

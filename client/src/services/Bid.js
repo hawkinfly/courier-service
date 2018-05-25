@@ -34,6 +34,18 @@ export default {
         return 'Ошибка получения заявок'
       })
   },
+  getBidsStatus123 () {
+    const config = {
+      headers: { Authorization: localStorage.token }
+    }
+    return api().get('/api/getreadybids', config)
+      .then(function (response) {
+        return response.data
+      })
+      .catch(function () {
+        return 'Ошибка получения заявок'
+      })
+  },
   deleteBid (id) {
     const config = {
       headers: { Authorization: localStorage.token }
@@ -44,6 +56,18 @@ export default {
       })
       .catch(function () {
         return 'Ошибка удалении заявки'
+      })
+  },
+  updateStatus (id, status) {
+    const config = {
+      headers: { Authorization: localStorage.token }
+    }
+    return api().post('/api/updatebidstatus', {_id: id, status: status}, config)
+      .then(function (response) {
+        return 'Статус заявки изменён'
+      })
+      .catch(function () {
+        return 'Ошибка изменения статуса'
       })
   }
 }

@@ -64,15 +64,17 @@
               </template>
             </v-flex>
           </v-layout>
+          <v-layout row justify-center>
+            <v-flex xs3 class="title_head">
+              Статус:
+            </v-flex>
+            <v-flex xs10>
+             &#160;{{ statuses[key] }}
+            </v-flex>
+          </v-layout>
           <v-layout row justify-center align-center>
             <v-btn fab dark small color="red" title="Удалить заявку" @click="removeBid(key)">
               <v-icon dark>delete</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="orange" title="Отменить заявку" @click="cancelBid(key)">
-              <v-icon dark>cancel</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="green darken-1" title="Подтвердить заявку" @click="successBid(key)">
-              <v-icon dark>check</v-icon>
             </v-btn>
           </v-layout>
         </div>
@@ -87,54 +89,44 @@ import GetCourier from '@/services/GetCourier'
 export default {
   beforeCreate: async function () {
     this.user = await localStorage.user
-    this.arrayBids = await Bid.getBidsStatus0()
+    this.arrayBids = await Bid.getBidsStatus123()
     for (let i = 0; i < this.arrayBids.length; i++) {
       let result = await GetCourier.getOneCourier(this.arrayBids[i]['id_courier'])
       this.courier.push(result)
       this.idBids.push(this.arrayBids[i]['_id'])
+      if (this.arrayBids[i]['status'] === 1) {
+        this.statuses.push('Выполнен')
+      } else if (this.arrayBids[i]['status'] === 2) {
+        this.statuses.push('Выполнен с опозданием')
+      } else if (this.arrayBids[i]['status'] === 3) {
+        this.statuses.push('Отменён')
+      }
+    }
+    for (let i = 0; i < this.statuses.length; i++) {
+      let str = '#bid-'
+      str += i
+      let item = document.querySelector(str)
+      if (this.statuses[i] === 'Выполнен') {
+        item.style.backgroundColor = 'rgba(0, 255, 0, 0.3)'
+      } else if (this.statuses[i] === 'Выполнен с опозданием') {
+        item.style.backgroundColor = 'rgba(255, 104, 0, 0.4)'
+      } else if (this.statuses[i] === 'Отменён') {
+        item.style.backgroundColor = 'rgba(255, 0, 0, 0.3)'
+      }
     }
   },
+
   data: () => ({
     user: '',
     arrayBids: null,
     courier: [],
-    idBids: []
+    idBids: [],
+    statuses: []
   }),
   methods: {
     removeBid: async function (numberBid) {
       let result = await Bid.deleteBid(this.idBids[numberBid])
       if (result === 'Заявка успешно удалена') {
-        let str = '#bid-'
-        str += numberBid
-        const item = document.querySelector(str)
-        item.style.display = 'none'
-      }
-    },
-    cancelBid: async function (numberBid) {
-      let status = 3
-      let result = await Bid.updateStatus(this.idBids[numberBid], status)
-      if (result === 'Статус заявки изменён') {
-        let str = '#bid-'
-        str += numberBid
-        const item = document.querySelector(str)
-        item.style.display = 'none'
-      }
-    },
-    successBid: async function (numberBid) {
-      const date = new Date()
-      let monthletter = ''
-      if (date.getMonth() < 9) {
-        monthletter = 0
-      }
-      let formatdatetimeNow = `${date.getDate()}${monthletter}${date.getMonth() + 1}${date.getFullYear()}${date.getHours()}${date.getMinutes()}`
-      let status = ''
-      if (formatdatetimeNow <= this.arrayBids[numberBid]['datetime']) {
-        status = 1
-      } else {
-        status = 2
-      }
-      let result = await Bid.updateStatus(this.idBids[numberBid], status)
-      if (result === 'Статус заявки изменён') {
         let str = '#bid-'
         str += numberBid
         const item = document.querySelector(str)
@@ -148,7 +140,7 @@ export default {
 <style scoped>
   .bid-block {
     padding: 15px;
-    background-color: rgba(145, 142, 142, .1);
+    background-color: rgba(142, 145, 142, 0.1);
     color: rgb(36, 36, 36);
     font-size: 16px;
     border-radius: 20px;

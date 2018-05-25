@@ -23,4 +23,8 @@ CourierSchema.pre('save', async function(next) {
     next()
 })
 
+CourierSchema.methods.comparePasswords = function (password) {
+    return bcrypt.compare(password, this.password)     
+}
+
 module.exports = mongoose.model('Courier', CourierSchema)

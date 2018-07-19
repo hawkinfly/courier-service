@@ -16,7 +16,6 @@
           label="Номер телефона"
           maxlength="11"
           autocomplete="off"
-          autofocus
           required
           prepend-icon="phone"
         ></v-text-field>

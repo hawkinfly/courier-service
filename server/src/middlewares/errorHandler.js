@@ -1,5 +1,5 @@
 module.exports = function(err, req, res, next) {
-    let { status = 500, message = 'Server Error'} = err
+    let { status = 500, message = 'Ошибка сервера'} = err
 
     return res
         .status(status)

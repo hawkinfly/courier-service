@@ -30,7 +30,7 @@ const signin = async (req, res, next) => {
     } catch (e) {
         return next({
             status: 400,
-            message: 'Bad Credentials'
+            message: 'Ошибка авторизации'
         })
     }
 

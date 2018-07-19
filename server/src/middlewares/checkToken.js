@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     if(!token){
         return next({
             status: 403,
-            message: 'Forbidden, No Token!'
+            message: 'Не найден токен!'
         })
     }
     try {

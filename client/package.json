@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Клиентская сторона АСУ курьерской службы",
   "author": "Andrew Kopanev <hawkinfly@gmail.com>",
   "private": true,
   "scripts": {
